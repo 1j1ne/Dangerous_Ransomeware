@@ -26,7 +26,7 @@ with open("key.key", "rb") as thekey:
     secretkey = thekey.read()
 
 
-secretphase = "bWFybW90Cg=="
+secretphase = "bWFybW90Cg=="  
 
 user_phase = input("Enter secret phase to decrypt the files!\n")
 
@@ -50,6 +50,4 @@ if base64.b64decode(secretphase).decode("utf-8").strip() == user_phase:
     print("Success")
 
 else: 
-   
-
     print("no")
